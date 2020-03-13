@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Cozycast UI mockup</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html, body {
+    height: 100%; width: 100%;
+    background: #012;
+    color: white;
+    font: 16px sans-serif;   
+  }
+  
+  .cozycast-app * { outline: 1px dotted white; }
+  
+  .cozycast-app {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    justify-items: stretch;
+    align-items: stretch;
+    grid:
+        "cozycast-stream cozycast-chat" 1fr
+        "cozycast-userlist cozycast-chat" 5em
+        / 1fr 20em;
+  }
+  
+  .cozycast-stream {
+    position: relative;
+    grid-area: cozycast-stream;
+  }
+  .cozycast-video-resizer {
+    width: 100%; height: 100%;
+    display: flex;
+  }
+  #placeholder-video {
+    flex-grow: 1;
+    background: center / contain url("video.png") no-repeat, #000811;
+  }
+  
+  .videocontrols {
+        opacity: 0;
+        transition: opacity 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+  }
+  
+  .cozycast-stream:hover .videocontrols {
+    opacity: 1;
+  }
+  
+  .videocontrols > * {
+    margin: 0.25em 0;
+  }
+  
+  .cozycast-chat {
+    grid-area: cozycast-chat;
+    background: #013;
+    display: grid;
+    grid:
+        "cozycast-pagetitle" 2em
+        "cozycast-chat" 1fr
+        "cozycast-messageinput" 5em;
+  }
+  
+  .cozycast-pagetitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font: bold 1.2em sans-serif;
+    background: #125;
+  }
+  
+  .cozycast-titletext {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .cozycast-messages {
+    padding: 0.5em;
+  }
+  .cozycast-messages > div:not(:first-child) {
+    margin-top: 1em;
+  }
+  .cozycast-messages > div::before {
+    content: attr(data-from);
+    font-weight: bold;
+    display: block;
+    margin-left: -0.5em;
+  }
+  .cozycast-messages > div {
+    padding-left: 0.5em;
+  }
+  
+  .cozycast-messages > div.me::before {
+    text-align: right;
+    margin-left: 0;
+    margin-right: -0.5em;
+  }
+  
+  .cozycast-messages > div.me {
+    text-align: right;
+    padding-left: 0;
+    padding-right: 0.5em;
+  }
+  
+  .cozycast-messageinput {
+    padding: 0.5em;
+    position: relative;
+  }
+  
+  .cozycast-messageinput-message {
+    width: 100%;
+    height: 100%;
+    background: #125;
+    color: white;
+    border: none;
+    resize: none;
+  }
+  
+  .img-upload-button {
+    display: none;
+    background: #236;
+    width: 4em;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+  }
+  
+  .cozycast-messageinput-message:placeholder-shown + .img-upload-button {
+    display: block;
+  }
+  
+  .cozycast-userlist {
+    grid-area: cozycast-userlist;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+</style>
+<script>
+    window.onload = function() {
+        var video = document.getElementById("placeholder-video");
+        window.onresize = function() {
+            var ratio = video.clientWidth / video.clientHeight;
+            if (ratio < 16 / 9) {
+                
+            }
+        }
+    }
+</script>
+</head>
+<body>
+    <div class="cozycast-app">
+        <div class="cozycast-stream">
+            <div class="cozycast-video-resizer">
+                <div id="placeholder-video"></div>
+            </div>
+            <div class="videocontrols">
+                <button>play/pause</button>
+                <button>remote</button>
+                <button>fullscreen</button>
+                <input type="slider" />
+            </div>
+        </div>
+        <div class="cozycast-chat">
+            <div class="cozycast-pagetitle"><span class="cozycast-titletext">ROOM TITLE</span><button>settings</button></div>
+            <div class="cozycast-messages">
+                <div class="me" data-from="me">MESSAGE1</div>
+                <div data-from="you">MESSAGE2</div>
+            </div>
+            <div class="cozycast-messageinput">
+                <textarea class="cozycast-messageinput-message" placeholder="Enter message.."></textarea>
+                <div class="img-upload-button"></div>
+            </div>
+        </div>
+        <div class="cozycast-userlist">LETS JUST PRETEND THERE IS A PLAIN USERLIST IN HERE K?</div>
+    </div>
+</body>
+</html>
